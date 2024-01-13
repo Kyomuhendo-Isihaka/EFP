@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-Farming Portal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white white_shadow fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <h3 class="textgreen">E-Farming Portal</h3>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    {% if role is None and user_id is None %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'efarm'%}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about'%}">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'all-categories'%}">All Categories</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'all-products'%}">All Products</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Login
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{%url 'login' role='farmer'%}">Farmer</a>
+                                <a class="dropdown-item" href="{%url 'login' role='customer'%}">Customer</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{%url 'login' role='admin'%}">Admin</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registration'%}">Registration</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact'%}">Contact</a>
+                    </li>
+                    {% endif %}
+
+                    {% if role is not None and user_id is not None %}
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                My Account
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">{{user.username}}</a>
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{%url 'logout'%}">Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                    {%endif%}
+
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-3 mb-5 pb-5">{%block content%} {%endblock%}</div>
+    <footer class="bg_green text-white fixed-bottom p-3 mt-5">
+        <h5 class="text-center">CopyRight &copy;2024|Hakateq Solutions</h5>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

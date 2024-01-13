@@ -1,0 +1,14 @@
+body {
+    padding-top: 76px; 
+  }
+
+.white_shadow {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
+  }
+.textgreen{
+    color: #128d09;
+}
+
+.bg_green{
+    background: #128d09;
+}

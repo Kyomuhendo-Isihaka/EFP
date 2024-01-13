@@ -1,0 +1,232 @@
+{%extends 'layout.html'%}
+
+
+{%block content%}
+
+<div class="container">
+    <h4 class="text-center">Products</h4>
+
+    {% if role == 'admin' %}
+    <form class="my-2">
+        <input type="text" name="searchKeyword" id="searchInput" onkeyup="searchTable()"
+            placeholder="Search for a Category" class="w-100 form-control p-2">
+    </form>
+    <table class="table table-bordered mt-4 " id="dataTable">
+        <thead class="bg_green text-white">
+            <tr>
+                <th>Provider/Farmer</th>
+                <th>Product Title</th>
+                <th>Product Category</th>
+                <th>Product Image</th>
+                <th>quantity(kg)</th>
+                <th>Price(Ugx)</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if products %}
+
+            {% for product in products %}
+
+            <td>{{product.farmerID.username}}</td>
+            <td>{{ product.title }}</td>
+            <td>{{product.categoryID.title}}</td>
+            <td><img src="{{product.image.url}}" width="160px" height="160px" alt=""></td>
+            <td>{{ product.quantity }}</td>
+            <td>{{product.price}}</td>
+            <td>
+               
+            </td>
+            </tr>
+
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center">No Products Available</td>
+            </tr>
+            {% endif %}
+
+        </tbody>
+    </table>
+
+
+
+
+    {%else%}
+
+    <a href="#" class="btn bg_green float-right text-white my-3" data-toggle="modal" data-target="#addProduct">Add
+        Product</a>
+    <!-- add Product popup -->
+    <div class="modal fade" id="addProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="" class="form-group" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="farmerId" value="{{user_id}}" id="">
+                        <label for="">Product Title</label>
+                        <input type="text" class="form-control my-3 " name="title" required autocomplete="off">
+
+                        <label for="">Product Category</label>
+                        <select name="product_category" id="" class="w-100 mb-3 p-2">
+                            {% if categories %}
+                            {%for category in categories%}
+                            <option value="{{category.categoryID}}">{{category.title}}</option>
+                            {%endfor%}
+                            <option value="{{None}}">Others</option>
+                            {%else%}
+                            <option value="{{None}}">Others</option>
+                            {%endif%}
+                        </select>
+
+                        <label for="">Description</label>
+                        <textarea name="description" class="form-control mb-3" id="" rows="5"></textarea>
+
+                        <label for="">Product Quantity(kg)</label>
+                        <input type="number" class="form-control my-3" name="quantity" required autocomplete="off">
+
+                        <label for="">Product Price</label>
+                        <input type="number" class="form-control my-3" name="price" required autocomplete="off">
+
+
+                        <label for="">Product Image</label>
+                        <input type="file" class="form-control my-3" name="image" accept="image/*" required
+                            autocomplete="off">
+
+
+                        <button type="submit" class="btn text-white w-25 bg_green">Save</button>
+
+                        <button type="button" class=" btn text-white w-25 bg-secondary"
+                            data-dismiss="modal">Cancel</button>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <p><small>By Hakateq Solutions &copy;2024</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form class="my-2">
+        <input type="text" name="searchKeyword" id="searchInput" onkeyup="searchTable()"
+            placeholder="Search for a Category" class="w-100 form-control p-2">
+    </form>
+    <table class="table table-bordered mt-4 " id="dataTable">
+        <thead class="bg_green text-white">
+            <tr>
+                <th>Product Title</th>
+                <th>Product Category</th>
+                <th>Product Image</th>
+                <th>Product description</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if products %}
+
+            {% for product in products %}
+            {% if product.farmerID.farmerID == user_id %}
+            <tr>
+                <td>{{ product.title }}</td>
+                <td>{{product.categoryID.title}}</td>
+                <td><img src="{{product.image.url}}" width="160px" height="160px" alt=""></td>
+                <td>{{ product.description }}</td>
+                <td>{{product.quantity}}</td>
+                <td>{{product.price}}</td>
+                <td>
+                    <div class="d-flex">
+                        <a href="#" class="nav-link btn btn-primary mx-2" data-toggle="modal"
+                            data-target="#editProduct{{product.productID}}"> Edit</a>
+                        <a href="{% url 'delete_product' role=role user_id=user_id pk=product.productID %}" onclick="return confirm('Are you sure you want to delete this Product?');"
+                            class="nav-link btn btn-danger mx-2">Delete</a>
+                    </div>
+
+                </td>
+            </tr>
+            {% endif %}
+            <!-- edit product pop up -->
+            <div class="modal fade" id="editProduct{{product.productID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit {{product.title}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+        
+                            <form action="{% url 'edit_product' role=role user_id=user_id pk=product.productID %}" class="form-group" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden" name="farmerId" value="{{user_id}}" id="">
+                                <label for="">Product Title</label>
+                                <input type="text" class="form-control my-3 " value="{{product.title}}" name="title" required autocomplete="off">
+        
+                                <label for="">Product Category</label>
+                                
+                                <select name="product_category" id="" class="w-100 mb-3 p-2">
+                                    {% if categories %}
+                                        {% for category in categories %}
+                                            <option value="{{ category.categoryID }}" {% if category.categoryID == product.categoryID.categoryID %}selected{% endif %}>
+                                                {{ category.title }}
+                                            </option>
+                                        {% endfor %}
+                                        <option value="{{ None }}" {% if product.categoryID.categoryID is None %}selected{% endif %}>Others</option>
+                                    {% else %}
+                                        <option value="{{ None }}" selected>Others</option>
+                                    {% endif %}
+                                </select>
+        
+                                <label for="">Description</label>
+                                <textarea name="description" class="form-control mb-3" id="" rows="5">{{product.description}}</textarea>
+        
+                                <label for="">Product Quantity(kg)</label>
+                                <input type="number" class="form-control my-3" name="quantity" value="{{product.quantity}}" required autocomplete="off">
+        
+                                <label for="">Product Price</label>
+                                <input type="number" class="form-control my-3" name="price" value="{{product.price}}" required autocomplete="off">
+                
+                                <label for="">Product Image</label>
+                                <input type="file" class="form-control my-3" name="image" accept="image/*"
+                                    autocomplete="off">
+                
+                                <button type="submit" class="btn text-white w-25 bg_green">Save</button>
+        
+                                <button type="button" class=" btn text-white w-25 bg-secondary"
+                                    data-dismiss="modal">Cancel</button>
+        
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <p><small>By Hakateq Solutions &copy;2024</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center">No Products Available</td>
+            </tr>
+            {% endif %}
+
+        </tbody>
+    </table>
+
+
+
+    {%endif%}
+
+</div>
+{%endblock%}

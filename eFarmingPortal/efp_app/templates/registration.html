@@ -1,0 +1,67 @@
+{%extends 'base.html'%} {%block content%}
+
+<div class="container">
+    <div class="card mx-auto w-75">
+        <div class="card-title bg_green p-2">
+            <h3 class="text-center text-white">Registration Form</h3>
+        </div>
+        <div class="card-body">
+            <h5 class="text-danger">{{msg}}</h5>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="firstname">First Name</label>
+                        <input type="text" class="form-control" name="fname"required/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="lastname">Last name</label>
+                        <input type="text" class="form-control" name="lname"required/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Username</label>
+                    <input type="text" class="form-control my-3" name="username"required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Phone Number</label>
+                    <input type="text" class="form-control my-3" name="phone_num"required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Email Address</label>
+                    <input type="email" class="form-control my-3" name="email_address" required/>
+                </div>
+                <div class="form-group">
+                    <label for="">Address</label>
+                    <input type="text" class="form-control my-3" name="address"required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Role</label>
+                    <select name="role" id="" class="w-100 p-2">
+                        <option value="farmer">Farmer</option>
+                        <option value="customer">Customer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input type="password" name="password" class="form-control my-3" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Confirm Password</label>
+                    <input type="password" name="conf_password" class="form-control my-3" required/>
+                </div>
+
+                
+                <input type="submit" class="p-2 btn  bg_green text-white" value="Register" name="" id="" />
+                <input type="reset" class="p-2 btn  bg-secondary text-white" value="Cancel" name="" id="" />
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}

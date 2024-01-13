@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+
+
+{%block content%}
+
+<div class="container">
+    <div class="card mx-auto w-50">
+        <div class="card-title bg_green p-2">
+            <h3 class="text-center text-white">Login</h3>
+        </div>
+        <div class="card-body">
+            <h5 class="text-center text-danger">{{msg}}</h5>
+            <form action="{% url 'login' role %}" method="POST">
+                {% csrf_token %}
+                <label for="">Username</label>
+                <input type="text" name="username" class="form-control my-3" required>
+
+                <label for="">Password</label>
+                <input type="password" name="password" class="form-control my-3" required>
+
+                <input type="submit" class="p-2 btn  bg_green text-white" value="Login" name="" id="">
+                <input type="reset" class="p-2 btn  bg-secondary text-white" value="Cancel" name="" id="">
+            </form>
+        </div>
+        <a href="{%url 'efarm'%}" class="text-center nav-link text-dark p-2">Back home</a>
+    </div>
+</div>
+{%endblock%}

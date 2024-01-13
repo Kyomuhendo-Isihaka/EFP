@@ -1,0 +1,144 @@
+{%extends 'layout.html'%}
+
+
+{%block content%}
+
+<div class="container">
+    
+    <a href="#" class="btn bg_green text-white float-right my-3" data-toggle="modal" data-target="#addCategory">Add
+        Category</a>
+    <!-- add category popup -->
+    <div class="modal fade" id="addCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <form action="" class="form-group" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label for="">Category Name</label>
+                        <input type="text" class="form-control my-3 " name="title" required autocomplete="off">
+
+                        <label for="">Description</label>
+                        <textarea name="description" class="form-control mb-3" id="" rows="5"></textarea>
+
+
+                        <label for="">Category Image</label>
+                        <input type="file" class="form-control my-3" name="image" accept="image/*" required
+                            autocomplete="off">
+
+
+                        <button type="submit" class="btn text-white w-25 bg_green">Save</button>
+
+                        <button type="button" class=" btn text-white w-25 bg-secondary"
+                            data-dismiss="modal">Cancel</button>
+
+
+
+                    </form>
+                </div>
+
+
+                <div class="modal-footer">
+                    <p><small>By Shaka &copy;2024</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <h4 class="text-center">Categories</h4>
+    <form class="my-2">
+        <input type="text" name="searchKeyword" id="searchInput" onkeyup="searchTable()"
+            placeholder="Search for a Category" class="w-100 form-control p-2">
+    </form>
+    <table class="table table-bordered mt-4 " id="dataTable">
+        <thead class="bg_green text-white">
+            <tr>
+                <th>Category Name</th>
+                <th>Category Description</th>
+                <th>Category Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if categories %}
+
+            {% for category in categories %}
+            <tr>
+                <td>{{ category.title }}</td>
+                <td>{{ category.description }}</td>
+                <td><img src="{{category.image.url}}" width="160px" height="160px" alt=""></td>
+                <td>
+                    <div class="d-flex">
+                        <a href="#" class="nav-link btn btn-primary mx-2" data-toggle="modal"
+                            data-target="#editCategory{{category.categoryID}}"> Edit</a>
+                        <a href="{% url 'delete_category' role=role user_id=user_id pk=category.categoryID %}" onclick="return confirm('Are you sure you want to delete this category?');"
+                            class="nav-link btn btn-danger mx-2">Delete</a>
+                    </div>
+
+                </td>
+            </tr>
+            <!-- edit category pop up -->
+            <div class="modal fade" id="editCategory{{category.categoryID}}" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="false">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <form action="{% url 'edit_category' role=role user_id=user_id pk=category.categoryID %}"
+                                class="form-group" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <label for="">Category Name</label>
+                                <input type="text" class="form-control my-3" value="{{category.title}}" name="title"
+                                    required autocomplete="off">
+
+                                <label for="">Description</label>
+                                <textarea name="description" class="form-control mb-3" id=""
+                                    rows="5">{{category.description}}</textarea>
+
+
+                                <label for="">Category Image</label>
+                                <input type="file" class="form-control my-3" name="image" accept="image/*"
+                                    autocomplete="off">
+
+
+                                <button type="submit" class="btn text-white w-25 bg_green">Save</button>
+
+                                <button type="button" class=" btn text-white w-25 bg-secondary"
+                                    data-dismiss="modal">Cancel</button>
+
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <p><small>By Shaka &copy;2024</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center">No Categories available.</td>
+            </tr>
+            {% endif %}
+
+        </tbody>
+    </table>
+
+</div>
+{%endblock%}
