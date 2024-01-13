@@ -2,5 +2,29 @@
 
 
 {%block content%}
-category-products
+
+<div class="container">
+    <h4 class="text-center">{{category.title}} </h4>
+    <div class="row mx-auto bg-white p-3">
+        {%if products %}
+        {%for product in products%}
+        {%if product.categoryID.categoryID == category.categoryID %}
+        <div class="col-md-3 mx-4 my-5 card bg-light" style="height: 50vh;">
+            <img src="{{product.image.url}}" alt=""  width="100%" height="250px">
+            <div class="d-flex justify-content-between">
+                <p><b>Price:</b></p>
+                <p>{{product.price}}</p>
+            </div>
+            <p><b>{{product.title}}</b></p>
+            <a href="#" class="text-center nav-link">View Details</a>
+        </div>
+        {%endif%}
+        {%endfor%}
+        {%else%}
+        <h4 class="text-center text-white bg_green p-5">No Products Available</h4>
+        {%endif%}
+
+    </div>
+</div>
+
 {%endblock%}

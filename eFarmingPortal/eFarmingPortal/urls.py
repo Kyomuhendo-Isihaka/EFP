@@ -23,8 +23,8 @@ urlpatterns = [
     path('categories/<str:role>/<int:user_id>', views.categories, name="categories"),
     path('categories/<str:role>/<int:user_id>/<int:pk>/', views.categories, name='edit_category'),
     path('delete_category/<str:role>/<int:user_id>/<int:pk>', views.delete_category, name="delete_category"),
-
     path('category_products/<int:categoryID>', views.category_products, name="category_products"),
+    
     path('farmers/<str:role>/<int:user_id>', views.farmers, name="farmers"),
     path('customers/<str:role>/<int:user_id>', views.customers, name="customers")
 ]
