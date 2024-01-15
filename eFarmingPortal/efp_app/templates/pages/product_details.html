@@ -1,0 +1,28 @@
+{%extends 'base.html' %}
+
+{%block content%}
+<div class="container">
+    <h5 class="text-center">{{product.title}}</h5>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <img src="{{product.image.url}}" alt="" width="100%" height="350vh">
+        </div>
+        <div class="col-md-6">
+            <h6>Description</h6>
+            <p>{{product.description}}</p>
+            <h6>Price(Ugx)</h6>
+            {{product.price}}
+            <h6>Quantity</h6>
+            {{product.quantity}}
+            <h6>Farmer/Supplier Info</h6>
+            <div class="d-flex">
+                ID: {{product.farmerID.farmerID}}
+            </div>
+            <div class="d-flex">
+                username: {{product.farmerID.username}}
+            </div>
+            <a href="#" class="btn bg_green text-white">Add to Cart</a>
+        </div>
+    </div>
+</div>
+{%endblock%}

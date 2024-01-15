@@ -84,7 +84,9 @@
         <div class="col-md-2 sidebar sidebar-collapse bg_green pt-3" id="sidebar"
             style="height: 90vh; margin-top: -23px; position: fixed">
             <a href="{% url 'dashboard' role=role user_id=user_id %}" class="nav-link text-white">Dashboard</a>
+            {% if role != 'customer' %}
             <a href="{% url 'products' role=role user_id=user_id %}" class="nav-link text-white">Products</a>
+            {%endif%}
             {% if role == 'admin' %}
             <a href="{% url 'categories' role=role user_id=user_id %}" class="nav-link text-white">Categories</a>
             <a href="{% url 'farmers' role=role user_id=user_id %}" class="nav-link text-white">Farmers</a>
