@@ -16,7 +16,7 @@
                 <p>{{product.price}}</p>
             </div>
             <p><b>{{product.title}}</b></p>
-            <a href="#" class="text-center nav-link">View Details</a>
+            <a href="{% url 'product_details' pk=product.productID %}" class="text-center nav-link">View Details</a>
         </div>
         {%endif%}
         {%endfor%}

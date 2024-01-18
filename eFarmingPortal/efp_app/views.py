@@ -15,6 +15,14 @@ def all_products(request):
     products = models.Product.objects.all()   
     return render(request, 'all_products.html', {'products':products})
 
+def product_details(request, pk):
+    product = get_object_or_404(models.Product, productID=pk)
+    context = {
+        'product':product,
+    }
+    return render(request, 'pages/product_details.html', context)
+
+
 def category_products(request, categoryID):
     products= models.Product.objects.all()
     category = get_object_or_404(models.Category, categoryID=categoryID)
