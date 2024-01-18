@@ -2,6 +2,61 @@
 
 
 {%block content%}
+{% load static%}
+<div id="about" class="about-area area-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="section-headline text-center">
+            <h2>About eFarming Portal</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <!-- single-well start-->
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="well-left">
+            <div class="single-well">
+              <a href="#">
+								  <img src="{% static '/img/veg.jpg' %} " alt="">
+								</a>
+            </div>
+          </div>
+        </div>
+        <!-- single-well end-->
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="well-middle">
+            <div class="single-well">
+              <a href="#">
+                <h4 class="sec-head">Project Farmers</h4>
+              </a>
+              <p>
+                eFarming Portal is a digital platform committed to revolutionizing the farming industry. Our mission is to connect farmers with consumers, providing access to fresh, locally sourced products.
+              </p>
+              <h4>Our Core Values</h4>
+              <ul>
+                <li>
+                  <i class="fa fa-check"></i> Transparency
+                </li>
+                <li>
+                  <i class="fa fa-check"></i> Sustainability
+                </li>
+                <li>
+                  <i class="fa fa-check"></i>Customer-Centricity
+                </li>
+                <li>
+                  <i class="fa fa-check"></i> Renovaion of Commercial Farms
+                </li>
+                <li>
+                  <i class="fa fa-check"></i> Make Quality Products
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- End col-->
+      </div>
+    </div>
+  </div>
 
-About
 {%endblock%}

@@ -6,12 +6,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>E-Farming Portal</title>
+    
+
+    <!-- Bootstrap CSS File -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
+    <!-- fontawesome  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 
+
+    <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<!-- Nivo Slider CSS and JS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nivoslider/3.2/nivo-slider.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nivoslider/3.2/jquery.nivo.slider.js"></script>
+
+  <!-- Main Stylesheet File -->
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+  <link href="{% static 'css/nivo-slider.css' %}" rel="stylesheet">
+
+ 
+  <!-- Responsive Stylesheet File
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+     -->
+    <!-- <script src="{% static 'js/main.js' %}"></script> -->
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white white_shadow fixed-top">
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-white white_shadow  fixed-top" id="sticker">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <h3 class="textgreen">E-Farming Portal</h3>
@@ -85,13 +109,63 @@
         </div>
     </nav>
 
-    <div class="container-fluid p-3 mb-5 pb-5">{%block content%} {%endblock%}</div>
+    <div class="container-fluid  mb-5">{%block content%} {%endblock%}</div>
     <footer class="bg_green text-white fixed-bottom p-3 mt-5">
         <h5 class="text-center">CopyRight &copy;2024|Hakateq Solutions</h5>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/wowjs@1.3.0/dist/wow.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" ></script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nivoslider/3.2/jquery.nivo.slider.js" ></script> -->
+    <script>
+        $(document).ready(function(){
+            $('#slider').nivoSlider({
+                // Your configuration options go here
+                effect: 'fade',
+                animSpeed: 500,
+                effect: 'random',
+                slices: 15,
+                boxCols: 12,
+                boxRows: 8,
+                animSpeed: 500,
+                pauseTime: 5000,
+                startSlide: 0,
+                directionNav: true,
+                controlNavThumbs: true,
+                pauseOnHover: false,
+                manualAdvance: false,
+                // Add more options as needed
+            });
+        });
+
+        // wow 
+        new WOW().init();
+
+        document.addEventListener("DOMContentLoaded", function() {
+    // Hide all slider directions initially
+    var allSliderDirections = document.querySelectorAll('.slider-direction');
+    allSliderDirections.forEach(function(direction) {
+        direction.style.display = 'none';
+    });
+
+    // Show the active slider direction (e.g., slider-one)
+    var initialSliderDirection = document.querySelector('.slider-one');
+    initialSliderDirection.style.display = 'block';
+
+    // Toggle visibility of .slider-content based on active direction
+    var sliderContent = document.querySelector('.slider-content');
+    if (initialSliderDirection.classList.contains('slider-content')) {
+        sliderContent.style.display = 'block';
+    } else {
+        sliderContent.style.display = 'none';
+    }
+});
+
+    </script>
+    
 </body>
 
 </html>
